@@ -1,28 +1,48 @@
-import React from "react";
+import React, { useState } from 'react';
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
-
-//create your first component
 const Home = () => {
-	return (
-		<div className="text-center">
-            
-
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
-	);
+    const [inputValue, setInputValue] = useState("");
+    const [Mistareas, setMistareas] = useState([]);
+    
+    return (
+        <div className="container">
+            <h1>Mis tareas {inputValue}</h1>
+            <ul>
+                <li>
+                    <input 
+                        type="text"
+                        onChange={(e) => setInputValue(e.target.value)}
+                        value={inputValue}
+                        onKeyDown={(e) => {
+                            console.log(e.key);
+                            if (e.key === "Enter") { 
+                                console.log("Enter was pressed");
+                                setMistareas(Mistareas.concat(inputValue));
+                                setInputValue("");
+                            }
+                        }}
+                        placeholder="¿Qué necesitas hacer?"
+                    />
+                </li>
+                {Mistareas.map((item, index) => (
+                    <li key={index}>
+                        {item} {""}
+                        <i 
+                            className="fa-solid fa-trash" 
+                            onClick={() =>
+                                setMistareas(
+                                    Mistareas.filter(
+                                        (_, currentIndex) => index !== currentIndex
+                                    )
+                                )   
+                            }
+                        ></i>
+                    </li>
+                ))}
+            </ul>
+            <div>{Mistareas.length} tareas</div>
+        </div>
+    );
 };
 
 export default Home;

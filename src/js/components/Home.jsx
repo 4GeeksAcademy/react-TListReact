@@ -6,7 +6,7 @@ const Home = () => {
     
     return (
         <div className="container">
-            <h1>Mis tareas {inputValue}</h1>
+            <h1>Mis tareas </h1>
             <ul>
                 <li>
                     <input 
